@@ -1,0 +1,354 @@
+<div *ngIf="staffDetails; else noStaffSelected" id="staff-details">
+  <div class="heading-wrapper">
+    <div class="heading">Basic Information</div>
+  </div>
+  <form [formGroup]="staffForm">
+    <mat-grid-list cols="9" rowHeight="2rem" gutterSize="8">
+      <mat-grid-tile rowspan="2" class="img-tile">
+        <img [src]="staffDetails?.picture" width="80" height="100" alt="picture" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input" colspan="2">
+        <label class="large-label">Mã nhân viên</label>
+        <input type="text" formControlName="employeeId" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input" colspan="2">
+        <label>Họ</label>
+        <input formControlName="lastName" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input" colspan="2">
+        <label>Tên lót</label>
+        <input formControlName="middleName" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input" colspan="2">
+        <label>Tên</label>
+        <input formControlName="firstName" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input" colspan="2">
+        <label class="large-label">Ngày sinh</label>
+        <input type="date" formControlName="birthdate" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input" colspan="2">
+        <label>Giới tính</label>
+        <select id="gender" formControlName="gender">
+          <option *ngFor="let option of genderOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input" colspan="2">
+        <label>Dân tộc</label>
+        <select id="ethnicity" formControlName="ethnicity">
+          <option *ngFor="let option of ethnicityOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input" colspan="2">
+        <label>Tôn giáo</label>
+        <select id="ethnicity" formControlName="religion">
+          <option *ngFor="let option of religionOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="identityCard">
+      <mat-grid-tile class="label_input">
+        <label>CMND</label>
+        <input formControlName="cmnd" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input">
+        <label>CCCD</label>
+        <input formControlName="cmnd" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input">
+        <label>Ngày cấp</label>
+        <input type="date" formControlName="issueDate" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input">
+        <label>Nơi cấp</label>
+        <input formControlName="issuePlace" />
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-tile-header>Nơi tạm trú</mat-grid-tile-header>
+    <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="temporalResidence">
+      <mat-grid-tile class="label_input">
+        <label>Đường</label>
+        <input formControlName="street" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input">
+        <label>Phường/Xã</label>
+        <input formControlName="ward" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input">
+        <label>Quận/huyện</label>
+        <input formControlName="district" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input">
+        <label>Tỉnh/Thành phố</label>
+        <input formControlName="city" />
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-tile-header>Nơi thường trú</mat-grid-tile-header>
+    <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="permanentResidence">
+      <mat-grid-tile class="label_input">
+        <label>Đường</label>
+        <input formControlName="street" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input">
+        <label>Phường/Xã</label>
+        <input formControlName="ward" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input">
+        <label>Quận/huyện</label>
+        <input formControlName="district" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input">
+        <label>Tỉnh/Thành phố</label>
+        <input formControlName="city" />
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="contact">
+      <mat-grid-tile class="label_input">
+        <label>Email</label>
+        <input formControlName="email" />
+      </mat-grid-tile>
+      <mat-grid-tile class="label_input">
+        <label>Di động</label>
+        <input formControlName="phone" />
+      </mat-grid-tile>
+    </mat-grid-list>
+
+
+    <div class="split lower">
+      <div class="column">
+        <div class="info-section">
+          <div class="heading-wrapper">
+            <div class="heading">Thông tin sức khỏe</div>
+          </div>
+          <div class="split" formGroupName="health">
+            <div class="measurement column">
+              <label>Chiều cao</label>
+              <input formControlName="height" />
+              <span>cm</span>
+            </div>
+            <div class="measurement column">
+              <label>Cân nặng</label>
+              <input formControlName="weight" />
+              <span>kg</span>
+            </div>
+          </div>
+          <table mat-table [dataSource]="staffDetails?.health?.disease || []" class="mat-elevation-z8">
+            <ng-container matColumnDef="#">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let element"></td>
+            </ng-container>
+
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> STT </th>
+              <td mat-cell *matCellDef="let element, let i = index">{{ i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Tên bệnh </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Mô tả </th>
+              <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="heathDiesesColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: heathDiesesColumns;"></tr>
+          </table>
+        </div>
+
+        <div class="info-section">
+          <div class="heading-wrapper">
+            <div class="heading">Thông tin bảo hiểm</div>
+          </div>
+          <table mat-table [dataSource]="staffDetails?.insurance || []" class="mat-elevation-z8">
+            <ng-container matColumnDef="#">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let element"></td>
+            </ng-container>
+
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> STT </th>
+              <td mat-cell *matCellDef="let element, let i = index">{{ i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="number">
+              <th mat-header-cell *matHeaderCellDef> Số bảo hiểm </th>
+              <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Tên bảo hiểm </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="type">
+              <th mat-header-cell *matHeaderCellDef> Loại bảo hiểm </th>
+              <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="insuranceColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: insuranceColumns;"></tr>
+          </table>
+        </div>
+
+        <div class="info-section">
+          <div class="heading-wrapper">
+            <div class="heading">Thông tin hộ chiếu</div>
+          </div>
+          <table mat-table [dataSource]="staffDetails.passport || []" class="mat-elevation-z8">
+            <ng-container matColumnDef="#">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let element"></td>
+            </ng-container>
+
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> STT </th>
+              <td mat-cell *matCellDef="let element, let i = index">{{ i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="number">
+              <th mat-header-cell *matHeaderCellDef> Số hộ chiếu </th>
+              <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="issueDate">
+              <th mat-header-cell *matHeaderCellDef> Ngày cấp </th>
+              <td mat-cell *matCellDef="let element"> {{element.issueDate}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expirationDate">
+              <th mat-header-cell *matHeaderCellDef> Ngày hết hạn </th>
+              <td mat-cell *matCellDef="let element"> {{element.expirationDate}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="passportColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: passportColumns;"></tr>
+          </table>
+        </div>
+
+      </div>
+      <mat-divider vertical></mat-divider>
+      <div class="column">
+        <div class="info-section">
+          <div class="heading-wrapper">
+            <div class="heading">Thông tin gia đình</div>
+          </div>
+          <table mat-table [dataSource]="staffDetails?.family || []" class="mat-elevation-z8">
+            <ng-container matColumnDef="#">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let element"></td>
+            </ng-container>
+
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> STT </th>
+              <td mat-cell *matCellDef="let element, let i = index">{{ i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="relationship">
+              <th mat-header-cell *matHeaderCellDef> Loại quan hệ </th>
+              <td mat-cell *matCellDef="let element"> {{element.relationship}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastName">
+              <th mat-header-cell *matHeaderCellDef> Họ </th>
+              <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+            </ng-container>
+
+            <!-- Middle Name Column -->
+            <ng-container matColumnDef="middleName">
+              <th mat-header-cell *matHeaderCellDef> Tên lót </th>
+              <td mat-cell *matCellDef="let element"> {{element.middleName}} </td>
+            </ng-container>
+
+            <!-- First Name Column -->
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef> Tên </th>
+              <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="birthdate">
+              <th mat-header-cell *matHeaderCellDef> Ngày sinh </th>
+              <td mat-cell *matCellDef="let element"> {{element.birthdate}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="familyColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: familyColumns;"></tr>
+          </table>
+        </div>
+        <div class="info-section">
+          <div class="heading-wrapper">
+            <div class="heading">Quá trình học tập</div>
+          </div>
+          <table mat-table [dataSource]="staffDetails.academicProcess || []" class="mat-elevation-z8">
+            <ng-container matColumnDef="#">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let element"></td>
+            </ng-container>
+
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> STT </th>
+              <td mat-cell *matCellDef="let element, let i = index">{{ i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="from">
+              <th mat-header-cell *matHeaderCellDef> Từ ngày </th>
+              <td mat-cell *matCellDef="let element"> {{element.from}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="to">
+              <th mat-header-cell *matHeaderCellDef> Đến ngày </th>
+              <td mat-cell *matCellDef="let element"> {{element.to}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="school">
+              <th mat-header-cell *matHeaderCellDef> Trường </th>
+              <td mat-cell *matCellDef="let element"> {{element.school}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="academicProcessColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: academicProcessColumns;"></tr>
+          </table>
+        </div>
+        <div class="info-section">
+          <div class="heading-wrapper">
+            <div class="heading">Lịch sử hoạt động</div>
+          </div>
+          <table mat-table [dataSource]="staffDetails.activityHistory || []" class="mat-elevation-z8">
+            <ng-container matColumnDef="#">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let element"></td>
+            </ng-container>
+
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> STT </th>
+              <td mat-cell *matCellDef="let element, let i = index">{{ i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="from">
+              <th mat-header-cell *matHeaderCellDef> Từ ngày </th>
+              <td mat-cell *matCellDef="let element"> {{element.from}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="to">
+              <th mat-header-cell *matHeaderCellDef> Đến ngày </th>
+              <td mat-cell *matCellDef="let element"> {{element.to}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="school">
+              <th mat-header-cell *matHeaderCellDef> Loại hoạt động </th>
+              <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="academicProcessColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: academicProcessColumns;"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #noStaffSelected>
+  <p>Please select a staff</p>
+</ng-template>

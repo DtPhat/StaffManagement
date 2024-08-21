@@ -1,0 +1,36 @@
+tr {
+  height: 2rem;
+}
+
+tr.selected {
+  background-color: #f1f1f1;
+}
+
+th,
+td {
+  font-size: 10px;
+  padding: 4px;
+}
+
+table {
+  width: 30rem;
+}
+
+.heading {
+  padding-left: 4px;
+  padding-right: 4px;
+  width: 100%;
+  margin-bottom: 4px;
+  background-color: lightgray;
+  font-weight: bold;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.heading-wrapper {
+  padding-right: 6px;
+}
+
+.img-tile {
+  border-radius: 50%;
+}
