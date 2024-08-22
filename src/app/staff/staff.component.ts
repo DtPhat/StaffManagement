@@ -17,6 +17,5 @@ export class StaffComponent {
 
   onDisplayStaff(data: Staff) {
     this.staffDetails = data;
-    console.log('Data sent from Component A:', data);
   }
 }

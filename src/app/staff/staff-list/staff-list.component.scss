@@ -1,15 +1,21 @@
 tr {
-  height: 2rem;
+  height: 1rem;
 }
 
 tr.selected {
   background-color: #f1f1f1;
 }
 
+th {
+  background-color: gainsboro !important;
+  border-bottom: 1px solid gainsboro !important;
+}
+
 th,
 td {
-  font-size: 10px;
+  font-size: 12px;
   padding: 4px;
+  text-align: center;
 }
 
 table {

@@ -1,9 +1,11 @@
-import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { StaffService } from '../staff.service';
 import { Staff } from '../../shared';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-staff-list',
@@ -14,18 +16,32 @@ import { CommonModule } from '@angular/common';
 })
 
 
-export class StaffListComponent implements OnInit {
+export class StaffListComponent implements OnInit, OnDestroy {
+
+  // @Output() displayStaff = new EventEmitter<Staff>();
+  staffList: Staff[] = []
+  selectedStaff?: Staff;
+  subscription: Subscription = new Subscription();
+  displayedColumns: string[] = ['#', 'position', 'picture', 'employeeId', 'lastName', 'middleName', 'firstName'];
+
   constructor(
     private staffService: StaffService,
     private elementRef: ElementRef,
+    private router: Router
   ) { }
 
-  @Output() displayStaff = new EventEmitter<Staff>();
-  staffList: Staff[] = []
-  selectedStaff?: Staff;
-  displayedColumns: string[] = ['#', 'position', 'picture', 'employeeId', 'lastName', 'middleName', 'firstName'];
   ngOnInit(): void {
+    this.subscription = this.staffService.staffChanged
+      .subscribe(
+        (staff: Staff[]) => {
+          this.staffList = staff;
+        }
+      );
     this.staffList = this.staffService.getStaff();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   @HostListener('keydown', ['$event'])
@@ -51,24 +67,25 @@ export class StaffListComponent implements OnInit {
     }
   }
 
-  onRowClicked(row: any): void {
+  onRowClicked(row: Staff, event: Event): void {
     this.selectedStaff = row;
-    this.displayStaff.emit(this.selectedStaff)
+    // this.displayStaff.emit(this.selectedStaff);
+    this.router.navigate([`/staff/${this.selectedStaff.employeeId}`]);
   }
 
   private updateSelection(rowElement: HTMLElement) {
     const rowIndex = Array.from(this.elementRef.nativeElement.querySelectorAll('tr[mat-row]')).indexOf(rowElement);
     this.selectedStaff = this.staffList[rowIndex];
-    this.displayStaff.emit(this.selectedStaff)
+    // this.displayStaff.emit(this.selectedStaff)
+    this.router.navigate([`/staff/${this.selectedStaff.employeeId}`]);
     rowElement.focus();
   }
 
   focusStaffDetails() {
     const detailsElement = document.querySelector('app-staff-details');
-    const firstInput = detailsElement?.querySelector('input');
-    console.log(firstInput)
-    if (firstInput) {
-      firstInput.focus();
+    const inputs = detailsElement?.querySelectorAll('input');
+    if (inputs?.length) {
+      inputs[1].focus();
     }
   }
 

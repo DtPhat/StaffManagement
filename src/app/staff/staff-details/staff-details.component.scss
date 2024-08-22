@@ -2,6 +2,7 @@
   flex: 1
 }
 
+
 .heading {
   padding-left: 4px;
   padding-right: 4px;
@@ -9,7 +10,7 @@
   margin-bottom: 4px;
   background-color: lightgray;
   font-weight: bold;
-  font-size:11px;
+  font-size: 12px;
   text-transform: uppercase;
 }
 
@@ -18,42 +19,55 @@
 }
 
 mat-grid-tile {
-  font-size:11px;
+  font-size: 12px;
   padding: 0px;
 }
 
 mat-grid-tile-header {
-  font-size:11px;
+  font-size: 12px;
   font-weight: bold;
 }
 
-.label_input {
+.form_field {
   display: flex;
   gap: 1rem;
   font-weight: bold;
 
   label {
-    width: 6rem;
-    padding-right: 4px;
+    width: 7rem;
+  }
+
+  .inner-label {
+    font-weight: normal;
   }
 
   input {
-    font-size:11px;
-    width: 8rem;
+    font-size: 12px;
+    width: 7rem;
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    padding: 2px;
   }
 
   select {
-    font-size:11px;
-    min-width: 8rem;
+    @extend input;
+    width: 7.5rem;
+  }
+
+  #employeeId{
+    background-color: gainsboro;
   }
 }
+
 
 .measurement {
   align-items: center;
   height: 2rem;
-  font-size:11px;    font-size:11px;
+  font-size: 12px;
+  font-size: 12px;
 
-  @extend .label_input;
+  @extend .form_field;
+
   input {
     width: 4rem;
   }
@@ -62,20 +76,32 @@ mat-grid-tile-header {
 .split {
   display: flex;
   gap: 1rem;
+
   .column {
     flex: 1;
     width: 50%
   }
 }
 
+.ordinal_number {
+  background-color: whitesmoke;
+  width: 16px;
+}
+
 th,
 td {
-  font-size:11px;
-  padding: 2px;
+  font-size: 12px;
+  padding: 4x;
+  text-align: center;
+}
+
+td {
+  border: 1px solid lightgray;
 }
 
 th {
-  background-color: black;
+  background-color: gainsboro !important;
+  border-bottom: 1px solid gainsboro !important;
 }
 
 tr {
@@ -86,6 +112,6 @@ tr {
   margin-bottom: 1rem;
 }
 
-.lower{
+.lower {
   padding-top: 16px
 }

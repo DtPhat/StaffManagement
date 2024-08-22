@@ -2,44 +2,45 @@
   <div class="heading-wrapper">
     <div class="heading">Basic Information</div>
   </div>
+  <!-- <button (click)="logData()">Test</button> -->
   <form [formGroup]="staffForm">
     <mat-grid-list cols="9" rowHeight="2rem" gutterSize="8">
       <mat-grid-tile rowspan="2" class="img-tile">
-        <img [src]="staffDetails?.picture" width="80" height="100" alt="picture" />
+        <img [src]="staffDetails.picture" width="80" height="100" alt="picture" />
       </mat-grid-tile>
-      <mat-grid-tile class="label_input" colspan="2">
-        <label class="large-label">Mã nhân viên</label>
-        <input type="text" formControlName="employeeId" />
+      <mat-grid-tile class="form_field" colspan="2">
+        <label>Mã nhân viên</label>
+        <input type="text" formControlName="employeeId" id="employeeId" [disabled]="true" [attr.tabindex]="-1"/>
       </mat-grid-tile>
-      <mat-grid-tile class="label_input" colspan="2">
+      <mat-grid-tile class="form_field" colspan="2">
         <label>Họ</label>
         <input formControlName="lastName" />
       </mat-grid-tile>
-      <mat-grid-tile class="label_input" colspan="2">
+      <mat-grid-tile class="form_field" colspan="2">
         <label>Tên lót</label>
         <input formControlName="middleName" />
       </mat-grid-tile>
-      <mat-grid-tile class="label_input" colspan="2">
+      <mat-grid-tile class="form_field" colspan="2">
         <label>Tên</label>
         <input formControlName="firstName" />
       </mat-grid-tile>
-      <mat-grid-tile class="label_input" colspan="2">
-        <label class="large-label">Ngày sinh</label>
+      <mat-grid-tile class="form_field" colspan="2">
+        <label>Ngày sinh</label>
         <input type="date" formControlName="birthdate" />
       </mat-grid-tile>
-      <mat-grid-tile class="label_input" colspan="2">
+      <mat-grid-tile class="form_field" colspan="2">
         <label>Giới tính</label>
         <select id="gender" formControlName="gender">
           <option *ngFor="let option of genderOptions" [value]="option.value">{{ option.label }}</option>
         </select>
       </mat-grid-tile>
-      <mat-grid-tile class="label_input" colspan="2">
+      <mat-grid-tile class="form_field" colspan="2">
         <label>Dân tộc</label>
         <select id="ethnicity" formControlName="ethnicity">
           <option *ngFor="let option of ethnicityOptions" [value]="option.value">{{ option.label }}</option>
         </select>
       </mat-grid-tile>
-      <mat-grid-tile class="label_input" colspan="2">
+      <mat-grid-tile class="form_field" colspan="2">
         <label>Tôn giáo</label>
         <select id="ethnicity" formControlName="religion">
           <option *ngFor="let option of religionOptions" [value]="option.value">{{ option.label }}</option>
@@ -47,67 +48,83 @@
       </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="identityCard">
-      <mat-grid-tile class="label_input">
+      <mat-grid-tile class="form_field">
         <label>CMND</label>
         <input formControlName="cmnd" />
       </mat-grid-tile>
-      <mat-grid-tile class="label_input">
+      <mat-grid-tile class="form_field">
         <label>CCCD</label>
         <input formControlName="cmnd" />
       </mat-grid-tile>
-      <mat-grid-tile class="label_input">
+      <mat-grid-tile class="form_field">
         <label>Ngày cấp</label>
         <input type="date" formControlName="issueDate" />
       </mat-grid-tile>
-      <mat-grid-tile class="label_input">
+      <mat-grid-tile class="form_field">
         <label>Nơi cấp</label>
         <input formControlName="issuePlace" />
       </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-tile-header>Nơi tạm trú</mat-grid-tile-header>
     <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="temporalResidence">
-      <mat-grid-tile class="label_input">
-        <label>Đường</label>
-        <input formControlName="street" />
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Đường</label>
+        <select id="street" formControlName="street"> 
+          <option *ngFor="let option of streetOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
       </mat-grid-tile>
-      <mat-grid-tile class="label_input">
-        <label>Phường/Xã</label>
-        <input formControlName="ward" />
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Phường/Xã</label>
+        <select id="ward" formControlName="ward">
+          <option *ngFor="let option of wardOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
       </mat-grid-tile>
-      <mat-grid-tile class="label_input">
-        <label>Quận/huyện</label>
-        <input formControlName="district" />
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Quận/huyện</label>
+        <select id="district" formControlName="district">
+          <option *ngFor="let option of districtOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
       </mat-grid-tile>
-      <mat-grid-tile class="label_input">
-        <label>Tỉnh/Thành phố</label>
-        <input formControlName="city" />
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Tỉnh/Thành phố</label>
+        <select id="province" formControlName="province">
+          <option *ngFor="let option of provinceOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
       </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-tile-header>Nơi thường trú</mat-grid-tile-header>
     <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="permanentResidence">
-      <mat-grid-tile class="label_input">
-        <label>Đường</label>
-        <input formControlName="street" />
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Đường</label>
+        <select id="street" formControlName="street">
+          <option *ngFor="let option of streetOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
       </mat-grid-tile>
-      <mat-grid-tile class="label_input">
-        <label>Phường/Xã</label>
-        <input formControlName="ward" />
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Phường/Xã</label>
+        <select id="ward" formControlName="ward">
+          <option *ngFor="let option of wardOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
       </mat-grid-tile>
-      <mat-grid-tile class="label_input">
-        <label>Quận/huyện</label>
-        <input formControlName="district" />
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Quận/huyện</label>
+        <select id="district" formControlName="district">
+          <option *ngFor="let option of districtOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
       </mat-grid-tile>
-      <mat-grid-tile class="label_input">
-        <label>Tỉnh/Thành phố</label>
-        <input formControlName="city" />
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Tỉnh/Thành phố</label>
+        <select id="province" formControlName="province">
+          <option *ngFor="let option of provinceOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
       </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="contact">
-      <mat-grid-tile class="label_input">
+      <mat-grid-tile class="form_field">
         <label>Email</label>
         <input formControlName="email" />
       </mat-grid-tile>
-      <mat-grid-tile class="label_input">
+      <mat-grid-tile class="form_field">
         <label>Di động</label>
         <input formControlName="phone" />
       </mat-grid-tile>
@@ -132,7 +149,7 @@
               <span>kg</span>
             </div>
           </div>
-          <table mat-table [dataSource]="staffDetails?.health?.disease || []" class="mat-elevation-z8">
+          <table mat-table [dataSource]="staffDetails.health.disease || []" class="mat-elevation-z8">
             <ng-container matColumnDef="#">
               <th mat-header-cell *matHeaderCellDef>#</th>
               <td mat-cell *matCellDef="let element"></td>
@@ -140,7 +157,7 @@
 
             <ng-container matColumnDef="position">
               <th mat-header-cell *matHeaderCellDef> STT </th>
-              <td mat-cell *matCellDef="let element, let i = index">{{ i + 1}} </td>
+              <td mat-cell class="ordinal_number" *matCellDef="let element, let i = index" class="ordinal_number">{{ i + 1}} </td>
             </ng-container>
 
             <ng-container matColumnDef="name">
@@ -161,7 +178,7 @@
           <div class="heading-wrapper">
             <div class="heading">Thông tin bảo hiểm</div>
           </div>
-          <table mat-table [dataSource]="staffDetails?.insurance || []" class="mat-elevation-z8">
+          <table mat-table [dataSource]="staffDetails.insurance || []" class="mat-elevation-z8">
             <ng-container matColumnDef="#">
               <th mat-header-cell *matHeaderCellDef>#</th>
               <td mat-cell *matCellDef="let element"></td>
@@ -169,7 +186,7 @@
 
             <ng-container matColumnDef="position">
               <th mat-header-cell *matHeaderCellDef> STT </th>
-              <td mat-cell *matCellDef="let element, let i = index">{{ i + 1}} </td>
+              <td mat-cell class="ordinal_number" *matCellDef="let element, let i = index">{{ i + 1}} </td>
             </ng-container>
 
             <ng-container matColumnDef="number">
@@ -204,7 +221,7 @@
 
             <ng-container matColumnDef="position">
               <th mat-header-cell *matHeaderCellDef> STT </th>
-              <td mat-cell *matCellDef="let element, let i = index">{{ i + 1}} </td>
+              <td mat-cell class="ordinal_number" *matCellDef="let element, let i = index">{{ i + 1}} </td>
             </ng-container>
 
             <ng-container matColumnDef="number">
@@ -234,7 +251,7 @@
           <div class="heading-wrapper">
             <div class="heading">Thông tin gia đình</div>
           </div>
-          <table mat-table [dataSource]="staffDetails?.family || []" class="mat-elevation-z8">
+          <table mat-table [dataSource]="staffDetails.family || []" class="mat-elevation-z8">
             <ng-container matColumnDef="#">
               <th mat-header-cell *matHeaderCellDef>#</th>
               <td mat-cell *matCellDef="let element"></td>
@@ -242,7 +259,7 @@
 
             <ng-container matColumnDef="position">
               <th mat-header-cell *matHeaderCellDef> STT </th>
-              <td mat-cell *matCellDef="let element, let i = index">{{ i + 1}} </td>
+              <td mat-cell class="ordinal_number" *matCellDef="let element, let i = index">{{ i + 1}} </td>
             </ng-container>
 
             <ng-container matColumnDef="relationship">
@@ -288,7 +305,7 @@
 
             <ng-container matColumnDef="position">
               <th mat-header-cell *matHeaderCellDef> STT </th>
-              <td mat-cell *matCellDef="let element, let i = index">{{ i + 1}} </td>
+              <td mat-cell class="ordinal_number" *matCellDef="let element, let i = index">{{ i + 1}} </td>
             </ng-container>
 
             <ng-container matColumnDef="from">
@@ -322,7 +339,7 @@
 
             <ng-container matColumnDef="position">
               <th mat-header-cell *matHeaderCellDef> STT </th>
-              <td mat-cell *matCellDef="let element, let i = index">{{ i + 1}} </td>
+              <td mat-cell class="ordinal_number" *matCellDef="let element, let i = index">{{ i + 1}} </td>
             </ng-container>
 
             <ng-container matColumnDef="from">

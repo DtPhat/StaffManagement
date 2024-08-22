@@ -1,12 +1,12 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Staff } from '../shared';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StaffService {
-  staffSelected = new EventEmitter<Staff>();
-
+  staffChanged = new Subject<Staff[]>();
   staffData: Staff[] = [
     {
       picture: "https://st4.depositphotos.com/9998432/24360/v/450/depositphotos_243600690-stock-illustration-person-gray-photo-placeholder-girl.jpg",
@@ -68,6 +68,11 @@ export class StaffService {
           name: "Health Insurance",
           type: "Health",
         },
+        {
+          number: 123456789,
+          name: "Health Insurance",
+          type: "Health",
+        },
       ],
       academicProcess: [
         {
@@ -84,6 +89,21 @@ export class StaffService {
         }
       ],
       activityHistory: [
+        {
+          from: "2020-01-01",
+          to: "2021-12-31",
+          type: "Project Manager",
+        },
+        {
+          from: "2020-01-01",
+          to: "2021-12-31",
+          type: "Project Manager",
+        },
+        {
+          from: "2020-01-01",
+          to: "2021-12-31",
+          type: "Project Manager",
+        },
         {
           from: "2020-01-01",
           to: "2021-12-31",
@@ -109,6 +129,7 @@ export class StaffService {
       },
       temporalResidence: {
         street: "789 Tran Hung Dao",
+        ward: "Ward 10",
         commune: "Dong Da",
         district: "Dong Da",
         city: "Hanoi",
@@ -116,6 +137,7 @@ export class StaffService {
       },
       permanentResidence: {
         street: "321 Hai Ba Trung",
+        ward: "Ward 10",
         commune: "Ba Dinh",
         district: "Ba Dinh",
         city: "Hanoi",
@@ -229,6 +251,7 @@ export class StaffService {
       },
       temporalResidence: {
         street: "101 Bach Dang",
+        ward: "Ward 8",
         commune: "Hai Chau",
         district: "Hai Chau",
         city: "Da Nang",
@@ -237,6 +260,7 @@ export class StaffService {
       permanentResidence: {
         street: "202 Le Duan",
         commune: "Thanh Khe",
+        ward: "Ward 1",
         district: "Thanh Khe",
         city: "Da Nang",
         province: "Da Nang",
@@ -273,7 +297,12 @@ export class StaffService {
           from: "2005-09-01",
           to: "2009-06-30",
           school: "Da Nang University",
-        }
+        },
+        {
+          from: "2005-09-01",
+          to: "2009-06-30",
+          school: "Da Nang University",
+        },
       ],
       passport: [
         {
@@ -287,6 +316,11 @@ export class StaffService {
           from: "2021-06-01",
           to: "2024-08-15",
           type: "Business Analyst",
+        },
+        {
+          from: "2021-06-01",
+          to: "2024-08-15",
+          type: "Business Analyst",
         }
       ],
     },
@@ -296,7 +330,7 @@ export class StaffService {
     return this.staffData.slice();
   }
 
-  getStaffMemberById(index: number) {
-    return this.staffData.slice()[index];
+  getStaffMemberById(id: string) {
+    return this.staffData.find(employee => employee.employeeId == id) ?? null;
   }
 }

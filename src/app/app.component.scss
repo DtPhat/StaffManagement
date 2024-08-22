@@ -30,6 +30,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+::ng-deep .mat-grid-tile-content {
+  justify-content: start;
+  align-items: start;
+}
+
 h1 {
   font-size: 3.125rem;
   color: var(--gray-900);
@@ -52,7 +57,6 @@ main {
   min-height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
   padding: 1rem;
   box-sizing: inherit;
   position: relative;

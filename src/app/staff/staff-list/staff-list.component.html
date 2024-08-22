@@ -48,7 +48,7 @@
 
   <!-- Header and Row Declarations -->
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" [attr.tabindex]="0" (click)="onRowClicked(row)"
-    [class.selected]="row === selectedStaff" (keydown)="onRowKeydown($event)">
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" [attr.tabindex]="0" (click)="onRowClicked(row, $event)"
+    [class.selected]="row === selectedStaff">
   </tr>
 </table>
