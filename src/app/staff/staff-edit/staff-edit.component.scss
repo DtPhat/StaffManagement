@@ -2,6 +2,16 @@
   flex: 1
 }
 
+.form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  form {
+    width: 75%;
+  }
+}
 
 .heading {
   padding-left: 4px;
@@ -32,6 +42,7 @@ mat-grid-tile-header {
   display: flex;
   gap: 1rem;
   font-weight: bold;
+  font-size: 12px;
 
   label {
     width: 7rem;
@@ -54,15 +65,34 @@ mat-grid-tile-header {
     width: 7.5rem;
   }
 
-  // input:disabled,
-  // textarea:disabled,
-  // select:disabled {
-  //   background-color: inherit;
-  //   color: inherit;
-  //   opacity: 1;
-  //   pointer-events: none;
-  //   border-color: inherit;
-  // }
+  #employeeId {
+    background-color: gainsboro;
+  }
+}
+
+
+.sub_form_field {
+  display: flex;
+  gap: 1rem;
+  font-weight: bold;
+  font-size: 12px;
+  height: 1.2rem;
+
+  label {
+    width: 5rem;
+  }
+
+  .inner-label {
+    font-weight: normal;
+  }
+
+  input {
+    font-size: 12px;
+    width: 5rem;
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    padding: 2px;
+  }
 
   #employeeId {
     background-color: gainsboro;
@@ -80,6 +110,7 @@ mat-grid-tile-header {
 
   input {
     width: 4rem;
+    padding: 2px;
   }
 }
 
@@ -124,4 +155,37 @@ tr {
 
 .lower {
   padding-top: 16px
+}
+
+
+.actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+
+  button.warning {
+    background-color: peachpuff;
+  }
+}
+
+button {
+  background-color: ivory;
+  border: 2px solid lightgray;
+  padding: 2px;
+  min-width: 6rem;
+  font-weight: bold;
+  border-radius: 2px;
+}
+
+.form_array {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem
+}
+
+.x_button {
+  width: 2rem;
 }

@@ -1,4 +1,4 @@
-<div *ngIf="staffDetails; else noStaffSelected" id="staff-details">
+<div *ngIf="staffDetails; else noStaffSelected" id="staff-details" >
   <div class="heading-wrapper">
     <div class="heading">Basic Information</div>
   </div>
@@ -10,7 +10,7 @@
       </mat-grid-tile>
       <mat-grid-tile class="form_field" colspan="2">
         <label>Mã nhân viên</label>
-        <input type="text" formControlName="employeeId" id="employeeId" [disabled]="true" [attr.tabindex]="-1"/>
+        <input type="text" formControlName="employeeId" id="employeeId" [attr.tabindex]="-1"/>
       </mat-grid-tile>
       <mat-grid-tile class="form_field" colspan="2">
         <label>Họ</label>
@@ -18,11 +18,11 @@
       </mat-grid-tile>
       <mat-grid-tile class="form_field" colspan="2">
         <label>Tên lót</label>
-        <input formControlName="middleName" />
+        <input formControlName="middleName"/>
       </mat-grid-tile>
       <mat-grid-tile class="form_field" colspan="2">
         <label>Tên</label>
-        <input formControlName="firstName" />
+        <input formControlName="firstName"/>
       </mat-grid-tile>
       <mat-grid-tile class="form_field" colspan="2">
         <label>Ngày sinh</label>
@@ -69,9 +69,7 @@
     <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="temporalResidence">
       <mat-grid-tile class="form_field">
         <label class="inner-label">Đường</label>
-        <select id="street" formControlName="street"> 
-          <option *ngFor="let option of streetOptions" [value]="option.value">{{ option.label }}</option>
-        </select>
+        <input formControlName="street" />
       </mat-grid-tile>
       <mat-grid-tile class="form_field">
         <label class="inner-label">Phường/Xã</label>
@@ -96,9 +94,7 @@
     <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="permanentResidence">
       <mat-grid-tile class="form_field">
         <label class="inner-label">Đường</label>
-        <select id="street" formControlName="street">
-          <option *ngFor="let option of streetOptions" [value]="option.value">{{ option.label }}</option>
-        </select>
+        <input formControlName="street" />
       </mat-grid-tile>
       <mat-grid-tile class="form_field">
         <label class="inner-label">Phường/Xã</label>
@@ -129,7 +125,6 @@
         <input formControlName="phone" />
       </mat-grid-tile>
     </mat-grid-list>
-
 
     <div class="split lower">
       <div class="column">

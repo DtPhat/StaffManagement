@@ -1,0 +1,247 @@
+<section class="form-container">
+  <h6>TẠO MỚI NHÂN VIÊN</h6>
+  <form [formGroup]="staffForm" (ngSubmit)="onSubmit()">
+    <div class="heading-wrapper">
+      <div class="heading">Thông tin cơ bản</div>
+    </div>
+    <mat-grid-list cols="9" rowHeight="2rem" gutterSize="8">
+      <mat-grid-tile class="form_field" colspan="2">
+        <label>Ảnh đại diện</label>
+        <input formControlName="picture" />
+      </mat-grid-tile>
+      <!-- <mat-grid-tile class="form_field" colspan="2">
+        <label>Mã nhân viên</label>
+        <input type="text" formControlName="employeeId" id="employeeId" [disabled]="true" [attr.tabindex]="-1" />
+      </mat-grid-tile> -->
+      <mat-grid-tile class="form_field" colspan="2">
+        <label>Họ</label>
+        <input formControlName="lastName" />
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field" colspan="2">
+        <label>Tên lót</label>
+        <input formControlName="middleName" />
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field" colspan="2">
+        <label>Tên</label>
+        <input formControlName="firstName" />
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field" colspan="2">
+        <label>Ngày sinh</label>
+        <input type="date" formControlName="birthdate" />
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field" colspan="2">
+        <label>Giới tính</label>
+        <select id="gender" formControlName="gender">
+          <option *ngFor="let option of genderOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field" colspan="2">
+        <label>Dân tộc</label>
+        <select id="ethnicity" formControlName="ethnicity">
+          <option *ngFor="let option of ethnicityOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field" colspan="2">
+        <label>Tôn giáo</label>
+        <select id="ethnicity" formControlName="religion">
+          <option *ngFor="let option of religionOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="identityCard">
+      <mat-grid-tile class="form_field">
+        <label>CMND</label>
+        <input formControlName="cmnd" />
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field">
+        <label>CCCD</label>
+        <input formControlName="cmnd" />
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field">
+        <label>Ngày cấp</label>
+        <input type="date" formControlName="issueDate" />
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field">
+        <label>Nơi cấp</label>
+        <input formControlName="issuePlace" />
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-tile-header>Nơi tạm trú</mat-grid-tile-header>
+    <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="temporalResidence">
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Đường</label>
+        <input formControlName="street" />
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Phường/Xã</label>
+        <select id="ward" formControlName="ward">
+          <option *ngFor="let option of wardOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Quận/huyện</label>
+        <select id="district" formControlName="district">
+          <option *ngFor="let option of districtOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Tỉnh/Thành phố</label>
+        <select id="province" formControlName="province">
+          <option *ngFor="let option of provinceOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-tile-header>Nơi thường trú</mat-grid-tile-header>
+    <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="permanentResidence">
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Đường</label>
+        <input formControlName="street" />
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Phường/Xã</label>
+        <select id="ward" formControlName="ward">
+          <option *ngFor="let option of wardOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Quận/huyện</label>
+        <select id="district" formControlName="district">
+          <option *ngFor="let option of districtOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field">
+        <label class="inner-label">Tỉnh/Thành phố</label>
+        <select id="province" formControlName="province">
+          <option *ngFor="let option of provinceOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="contact">
+      <mat-grid-tile class="form_field">
+        <label>Email</label>
+        <input formControlName="email" />
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field">
+        <label>Di động</label>
+        <input formControlName="phone" />
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <div class="split lower">
+      <div class="column">
+        <div class="info-section" formGroupName="health">
+          <div class="heading-wrapper">
+            <div class="heading">Thông tin sức khỏe</div>
+          </div>
+          <div class="split">
+            <div class="measurement column">
+              <label>Chiều cao</label>
+              <input formControlName="height" />
+              <span>cm</span>
+            </div>
+            <div class="measurement column">
+              <label>Cân nặng</label>
+              <input formControlName="weight" />
+              <span>kg</span>
+            </div>
+          </div>
+          <div formArrayName="disease">
+            <div class="row" *ngFor="let disease of staffHealthDieases.controls; let i = index" [formGroupName]="i"
+              class="form_array">
+              <div class="sub_form_field">
+                <label>Tên bệnh</label>
+                <input type="text" class="form-control" formControlName="name">
+              </div>
+              <div class="sub_form_field">
+                <label>Mô tả</label>
+                <input class="form-control" formControlName="description">
+              </div>
+              <div>
+                <button type="button" class="x_button" (click)="onDeleteHealthDiease(i)">X</button>
+              </div>
+            </div>
+            <hr>
+            <div>
+              <button type="button" (click)="onAddHealthDiease()">Thêm bệnh</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="heading-wrapper">
+            <div class="heading">Thông tin bảo hiểm</div>
+          </div>
+
+        </div>
+
+        <div class="info-section">
+          <div class="heading-wrapper">
+            <div class="heading">Thông tin hộ chiếu</div>
+          </div>
+
+        </div>
+
+      </div>
+      <mat-divider vertical></mat-divider>
+      <div class="column">
+        <div class="info-section">
+          <div class="heading-wrapper">
+            <div class="heading">Thông tin gia đình</div>
+          </div>
+
+          <div formArrayName="family">
+            <div class="row" *ngFor="let disease of staffHealthDieases.controls; let i = index" [formGroupName]="i"
+              class="form_array">
+              <div class="sub_form_field">
+                <label>Loại quan hệ</label>
+                <input type="text" class="form-control" formControlName="relationship">
+              </div>
+              <div class="sub_form_field">
+                <label>Họ</label>
+                <input class="form-control" formControlName="firstName">
+              </div>
+              <div class="sub_form_field">
+                <label>Tên lót</label>
+                <input class="form-control" formControlName="middleName">
+              </div>
+              <div class="sub_form_field">
+                <label>Tên</label>
+                <input class="form-control" formControlName="lastName">
+              </div>
+              <div class="sub_form_field">
+                <label>Ngày sinh</label>
+                <input class="form-control" formControlName="birthdate">
+              </div>
+              <div>
+                <button type="button" class="x_button" (click)="onDeleteHealthDiease(i)">X</button>
+              </div>
+            </div>
+            <hr>
+            <div>
+              <button type="button" (click)="onAddHealthDiease()">Thêm thông tin gia đình</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="info-section">
+          <div class="heading-wrapper">
+            <div class="heading">Quá trình học tập</div>
+          </div>
+
+        </div>
+        <div class="info-section">
+          <div class="heading-wrapper">
+            <div class="heading">Lịch sử hoạt động</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Save</button>
+      <button type="button" class="warning" (click)="onCancel()">Cancel</button>
+    </div>
+
+  </form>
+</section>

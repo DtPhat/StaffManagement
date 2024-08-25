@@ -54,7 +54,7 @@ export interface Staff {
 
 }
 
-interface Residence {
+export interface Residence {
   street: string,
   ward?: string,
   commune?: string,
@@ -66,19 +66,19 @@ interface Residence {
 
 
 
-interface Disease {
+export interface Disease {
   name: string,
   description: string,
 }
 
-interface IdentityCard {
+export interface IdentityCard {
   cmnd: string,
   cccd: string,
   issueDate: string,
   issuePlace: string,
 }
 
-interface Contact {
+export interface Contact {
   email: string,
   phone: number,
 }
