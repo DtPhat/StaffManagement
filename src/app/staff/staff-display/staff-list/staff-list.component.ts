@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, effect } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { StaffService } from '../staff.service';
-import { Staff } from '../../shared';
+import { StaffService } from '../../staff.service';
+import { Staff } from '../../../shared';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -20,7 +20,6 @@ export class StaffListComponent implements OnInit, OnDestroy {
 
   staffList: Staff[] = []
   selectedStaff?: Staff;
-  subscription: Subscription = new Subscription();
   displayedColumns: string[] = ['#', 'position', 'picture', 'employeeId', 'lastName', 'middleName', 'firstName'];
 
   constructor(
@@ -29,22 +28,14 @@ export class StaffListComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     effect(() => {
-      this.staffList = this.staffService.getStaff();
+      this.staffList = this.staffService.getStaffList();
     });
   }
 
   ngOnInit(): void {
-    // this.subscription = this.staffService.staffChanged
-    //   .subscribe(
-    //     (staff: Staff[]) => {
-    //       this.staffList = staff;
-    //     }
-    //   );
-    // this.staffList = this.staffService.getStaff();
   }
 
   ngOnDestroy(): void {
-    // this.subscription?.unsubscribe();
   }
 
   @HostListener('keydown', ['$event'])

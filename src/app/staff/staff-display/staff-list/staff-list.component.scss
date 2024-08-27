@@ -1,7 +1,3 @@
-tr {
-  height: 1rem;
-}
-
 tr.selected {
   background-color: #f1f1f1;
 }
@@ -18,6 +14,10 @@ td {
   text-align: center;
 }
 
+tr {
+  height: 2rem;
+}
+
 table {
   width: 30rem;
 }
@@ -29,7 +29,7 @@ table {
   margin-bottom: 4px;
   background-color: lightgray;
   font-weight: bold;
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
 }
 
@@ -39,8 +39,8 @@ table {
 
 .img-tile {
   border-radius: 50%;
-  width: 36;
-  height: 36;
+  width: 2rem;
+  height: 2rem;
 }
 
 .actions {

@@ -2,24 +2,29 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Staff } from '../shared';
 import { Subject } from 'rxjs';
 import { signal } from '@angular/core';
-
+import { StaffView } from './staff.constants';
 @Injectable({
   providedIn: 'root',
 })
-export class StaffService {
 
-  staff = signal<Staff[]>(staffData)
+export class StaffService {
+  selectedStaffView = signal<StaffView>(StaffView.Display)
+  staffList = signal<Staff[]>(staffData)
   selectedStaffMember = signal<Staff | null>(null)
 
   constructor() { }
 
-  getStaff() {
-    return this.staff();
+  getStaffList() {
+    return this.staffList();
+  }
+
+  getStaffView() {
+    return this.selectedStaffView();
   }
 
   selectStaff(id: string): void {
     this.selectedStaffMember.set(
-      this.staff().find(member => member.employeeId == id) ?? null
+      this.staffList().find(member => member.employeeId == id) ?? null
     )
   }
 
@@ -36,7 +41,7 @@ export class StaffService {
       newStaff.picture = 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541'
     }
     newStaff.employeeId = this.generateRandomId()
-    this.staff.update((prevData) => ([
+    this.staffList.update((prevData) => ([
       ...prevData,
       newStaff
     ])
@@ -45,6 +50,9 @@ export class StaffService {
     // this.staffChanged.next(this.staffData.slice());
   }
 
+  selectStaffView(action: StaffView): void {
+    this.selectedStaffView.set(action)
+  }
   updateStaffMember(staff: Staff) {
   }
 

@@ -1,0 +1,36 @@
+.action_list {
+  background-color: white;
+  padding-left: 1rem;
+  display: flex;
+  gap: 1rem;
+  font-size: 12px;
+  font-weight: bold;
+
+  .action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 4rem;
+    cursor: pointer;
+
+    .add_icon {
+      color: blue;
+    }
+
+    .edit_icon {
+      color: gray
+    }
+
+    .delete_icon {
+      color: red
+    }
+
+    .save_icon {
+      color: green;
+    }
+
+    .search_icon {
+      color: black
+    }
+  }
+}

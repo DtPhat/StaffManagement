@@ -34,7 +34,7 @@ mat-grid-tile-header {
   font-weight: bold;
 
   label {
-    width: 7rem;
+    width: 6.5rem;
   }
 
   .inner-label {
@@ -75,9 +75,11 @@ mat-grid-tile-header {
   height: 2rem;
   font-size: 12px;
   font-size: 12px;
-
+  gap: 0.5rem;
   @extend .form_field;
-
+  label {
+    width: 4rem;
+  }
   input {
     width: 4rem;
   }
@@ -115,7 +117,7 @@ th {
 }
 
 tr {
-  height: 1rem;
+  height: 2rem;
 }
 
 .info-section {

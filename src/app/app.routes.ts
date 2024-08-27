@@ -1,12 +1,13 @@
 import { Routes } from '@angular/router';
 import { StaffComponent } from './staff/staff.component';
-import { StaffDetailsComponent } from './staff/staff-details/staff-details.component';
+import { StaffDetailsComponent } from './staff/staff-display/staff-details/staff-details.component';
 import { StaffEditComponent } from './staff/staff-edit/staff-edit.component';
+import { AppComponent } from './app.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: StaffComponent,
+    component: AppComponent,
     pathMatch: 'full'
   },
   {

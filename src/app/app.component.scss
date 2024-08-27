@@ -28,6 +28,7 @@
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 ::ng-deep .mat-grid-tile-content {
@@ -60,6 +61,8 @@ main {
   padding: 1rem;
   box-sizing: inherit;
   position: relative;
+  background-color: #fafafa;
+
 }
 
 .angular-logo {
@@ -165,5 +168,59 @@ main {
     width: 100%;
     background: var(--red-to-pink-to-purple-horizontal-gradient);
     margin-block: 1.5rem;
+  }
+}
+
+section {
+  width: 100%;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 1rem 0.25rem 1rem;
+  gap: 1rem;
+  background-color: #fafafa;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  width: 100%;
+  height: 100vh;
+  .column {
+    width: 100%;
+  }
+
+  .navigation_tree {
+    height: 100%;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    background-color: #ebebeb;
+    padding: 0.5rem;
+
+    mat-tree-node {
+      font-size: 12px;
+      border-radius: 0.3rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+
+      .icon {
+        width: 2rem;
+        font-size: 26px;
+      }
+
+      button {
+        font-size: bold;
+      }
+    }
+
+    .selected_item {
+      background-color: #d8e4f4;
+    }
+
   }
 }

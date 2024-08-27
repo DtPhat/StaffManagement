@@ -4,12 +4,12 @@ import { MatTableModule } from '@angular/material/table';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Staff } from '../../shared';
+import { Staff } from '../../../shared';
 import { CommonModule } from '@angular/common';
 import { MatSliderVisualThumb } from '@angular/material/slider';
 import { MatDividerModule } from '@angular/material/divider';
 import { ActivatedRoute, Params } from '@angular/router';
-import { StaffService } from '../staff.service';
+import { StaffService } from '../../staff.service';
 @Component({
   selector: 'app-staff-details',
   standalone: true,
