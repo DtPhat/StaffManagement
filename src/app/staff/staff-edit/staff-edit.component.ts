@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDivider } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { StaffService } from '../staff.service';
-
+import { StaffView } from '../staff.constants';
+import { Staff } from '../../shared';
 @Component({
   selector: 'app-staff-edit',
   standalone: true,
@@ -20,15 +21,59 @@ import { StaffService } from '../staff.service';
 })
 
 export class StaffEditComponent implements OnInit {
-  id: string = '';
   editMode = false;
+  staffDetails: Staff | null = null
   staffForm!: FormGroup;
-
   constructor(
-    private activatedRoute: ActivatedRoute,
     private staffService: StaffService,
-    private router: Router
-  ) { }
+  ) {
+    effect(() => {
+      this.editMode = this.staffService.getStaffView() === StaffView.Edit;
+      this.staffDetails = this.staffService.getSelectedStaffMember();
+      this.staffDetails && this.staffForm.setValue({
+        // employeeId: this.staffDetails.employeeId || '',
+        lastName: this.staffDetails.lastName || '',
+        middleName: this.staffDetails.middleName || '',
+        firstName: this.staffDetails.firstName || '',
+        birthdate: this.staffDetails.birthdate || '',
+        gender: this.staffDetails.gender || '',
+        ethnicity: this.staffDetails.ethnicity || '',
+        religion: this.staffDetails.religion || '',
+        temporalResidence: {
+          street: this.staffDetails.temporalResidence?.street || '',
+          ward: this.staffDetails.temporalResidence?.ward || '',
+          commune: this.staffDetails.temporalResidence?.commune || '',
+          district: this.staffDetails.temporalResidence?.district || '',
+          county: this.staffDetails.temporalResidence?.county || '',
+          city: this.staffDetails.temporalResidence?.city || '',
+          province: this.staffDetails.temporalResidence?.province || '',
+        },
+        permanentResidence: {
+          street: this.staffDetails.permanentResidence?.street || '',
+          ward: this.staffDetails.permanentResidence?.ward || '',
+          commune: this.staffDetails.permanentResidence?.commune || '',
+          district: this.staffDetails.permanentResidence?.district || '',
+          county: this.staffDetails.permanentResidence?.county || '',
+          city: this.staffDetails.permanentResidence?.city || '',
+          province: this.staffDetails.permanentResidence?.province || '',
+        },
+        contact: {
+          email: this.staffDetails.contact?.email || '',
+          phone: this.staffDetails.contact?.phone || '',
+        },
+        identityCard: {
+          cmnd: this.staffDetails.identityCard?.cmnd || '',
+          cccd: this.staffDetails.identityCard?.cccd || '',
+          issueDate: this.staffDetails.identityCard?.issueDate || '',
+          issuePlace: this.staffDetails.identityCard?.issuePlace || '',
+        },
+        health: {
+          height: this.staffDetails.health?.height || 0,
+          weight: this.staffDetails.health?.weight || 0,
+        },
+      });
+    });
+  }
 
   streetOptions: Array<{ value: string, label: string }> = [
     { value: '123 Nguyen Trai', label: '123 Nguyen Trai' },
@@ -77,19 +122,23 @@ export class StaffEditComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.activatedRoute.params
-      .subscribe(
-        (params: Params) => {
-          this.id = params['id'];
-          this.editMode = params['id'] != null;
-          this.initForm();
-        }
-      );
+    // this.activatedRoute.params
+    //   .subscribe(
+    //     (params: Params) => {
+    //       this.id = params['id'];
+    //       this.editMode = params['id'] != null;
+    //       this.initForm();
+    //     }
+    //   );
+    this.editMode = this.staffService.getStaffView() === StaffView.Edit;
+    this.initForm()
   }
 
   private initForm() {
+    if (this.editMode) {
+      console.log(this.staffDetails)
+    }
     this.staffForm = new FormGroup({
-      picture: new FormControl(''),
       lastName: new FormControl('', Validators.required),
       middleName: new FormControl('', Validators.required),
       firstName: new FormControl('', Validators.required),
@@ -128,56 +177,57 @@ export class StaffEditComponent implements OnInit {
       health: new FormGroup({
         height: new FormControl(0, Validators.required),
         weight: new FormControl(0, Validators.required),
-        disease: new FormArray([])
+        // disease: new FormArray([])
       }),
-      family: new FormArray([])
+      // family: new FormArray([])
     });
   }
 
-  get staffHealthDieases() {
-    return this.staffForm.get('health')?.get('disease') as FormArray;
-  }
+  // get staffHealthDieases() {
+  //   return this.staffForm.get('health')?.get('disease') as FormArray;
+  // }
 
-  onAddHealthDiease() {
-    (<FormArray>this.staffForm.get('health')?.get('disease')).push(
-      new FormGroup({
-        'name': new FormControl('', Validators.required),
-        'description': new FormControl('', Validators.required)
-      })
-    );
-  }
+  // onAddHealthDiease() {
+  //   (<FormArray>this.staffForm.get('health')?.get('disease')).push(
+  //     new FormGroup({
+  //       'name': new FormControl('', Validators.required),
+  //       'description': new FormControl('', Validators.required)
+  //     })
+  //   );
+  // }
 
-  onDeleteHealthDiease(index: number) {
-    (<FormArray>this.staffForm.get('health')?.get('disease')).removeAt(index);
-  }
+  // onDeleteHealthDiease(index: number) {
+  //   (<FormArray>this.staffForm.get('health')?.get('disease')).removeAt(index);
+  // }
 
-  get staffFamily() {
-    return this.staffForm.get('family') as FormArray;
-  }
+  // get staffFamily() {
+  //   return this.staffForm.get('family') as FormArray;
+  // }
 
-  onAddFamily() {
-    (<FormArray>this.staffForm.get('family')).push(
-      new FormGroup({
-        'relationship': new FormControl('', Validators.required),
-        'firstName': new FormControl('', Validators.required),
-        'middleName': new FormControl('', Validators.required),
-        'lastName': new FormControl('', Validators.required),
-        'birthdate': new FormControl('', Validators.required),
-      })
-    );
-  }
+  // onAddFamily() {
+  //   (<FormArray>this.staffForm.get('family')).push(
+  //     new FormGroup({
+  //       'relationship': new FormControl('', Validators.required),
+  //       'firstName': new FormControl('', Validators.required),
+  //       'middleName': new FormControl('', Validators.required),
+  //       'lastName': new FormControl('', Validators.required),
+  //       'birthdate': new FormControl('', Validators.required),
+  //     })
+  //   );
+  // }
 
-  onDeleteFamily(index: number) {
-    (<FormArray>this.staffForm.get('health')?.get('disease')).removeAt(index);
-  }
+  // onDeleteFamily(index: number) {
+  //   (<FormArray>this.staffForm.get('health')?.get('disease')).removeAt(index);
+  // }
 
   onCancel() {
-    this.router.navigate(['../'], { relativeTo: this.activatedRoute });
+    this.staffService.selectStaffView(StaffView.Display)
   }
 
   onSubmit() {
+    console.log('Clicked?')
     if (this.editMode) {
-      // this.staffService.updatestaff(this.id, this.staffForm.value);
+      this.staffService.updateStaffMember(this.staffDetails?.employeeId!, this.staffForm.value);
     } else {
       this.staffService.addStaffMember(this.staffForm.value);
     }

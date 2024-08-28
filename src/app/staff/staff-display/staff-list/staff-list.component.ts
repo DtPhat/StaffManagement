@@ -5,8 +5,6 @@ import { Staff } from '../../../shared';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-
 @Component({
   selector: 'app-staff-list',
   standalone: true,

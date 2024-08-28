@@ -3,7 +3,6 @@ import { StaffListComponent } from "./staff-display/staff-list/staff-list.compon
 import { StaffDetailsComponent } from "./staff-display/staff-details/staff-details.component";
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
-import { Staff } from '../shared';
 import { StaffActionsComponent } from "./staff-actions/staff-actions.component";
 import { StaffDisplayComponent } from "./staff-display/staff-display.component";
 import { StaffEditComponent } from "./staff-edit/staff-edit.component";

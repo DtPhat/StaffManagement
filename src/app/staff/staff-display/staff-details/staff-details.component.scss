@@ -43,15 +43,17 @@ mat-grid-tile-header {
 
   input {
     font-size: 12px;
-    width: 7rem;
+    width: 6rem;
     border: 1px solid lightgray;
     border-radius: 2px;
-    padding: 2px;
+    padding: 3px 8px 3px 8px;
   }
 
   select {
     @extend input;
-    width: 7.5rem;
+    width: 7rem;
+    padding: 2px
+
   }
 
   // input:disabled,

@@ -1,5 +1,22 @@
 <main class="main">
   <section>
+    <div class="toolbar">
+      <div class="options">
+        <mat-icon aria-hidden="false" aria-label="Node" class="icon">mail</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="Node" class="icon">save_outline</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="Node" class="icon">replay_outline</mat-icon>
+        <div>|</div>
+        <mat-icon aria-hidden="false" aria-label="Node" class="icon">first_page_outline</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="Node" class="icon">chevron_left</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="Node" class="icon">chevron_right</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="Node" class="icon">last_page_outline</mat-icon>
+        <select>
+          <option>25</option>
+        </select>
+      </div>
+      <div class="home_title">TRANG CHỦ</div>
+      <div></div>
+    </div>
     <div class="navbar">
       <mat-icon aria-hidden="false" aria-label="Node" class="icon">menu</mat-icon>
       <div>Hệ thống</div>
@@ -13,14 +30,17 @@
       <div class="column">
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="navigation_tree">
           <!-- This is the tree node template for leaf nodes -->
-          <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding (click)="onLeafNodeClick(node)">
             <!-- use a disabled button to provide padding for tree leaf -->
             <button mat-icon-button disabled></button>
-            {{node.name}}
+            <div class="leaf_node {{isExpandableNodeSelected(node) ? 'selected_node' : ''}}">
+              {{node.name}}
+            </div>
           </mat-tree-node>
           <!-- This is the tree node template for expandable nodes -->
           <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding matTreeNodeToggle
-            [cdkTreeNodeTypeaheadLabel]="node.name">
+            [cdkTreeNodeTypeaheadLabel]="node.name"
+            class="{{isLevelOneAndContainsSelectedNode(node) ? 'selected_node' : ''}}">
             <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
               <mat-icon class="mat-icon-rtl-mirror">
                 {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
@@ -34,7 +54,13 @@
         </mat-tree>
       </div>
       <div class="column">
-        <app-staff />
+        <div [ngSwitch]="selectedNode">
+          <app-staff *ngSwitchCase="'Quản lí thông tin cá nhân'"></app-staff>
+          <div *ngSwitchDefault style="padding: 1rem">
+            Default screen
+          </div>
+        </div>
+        <!-- <app-staff-edit /> -->
       </div>
     </div>
   </section>

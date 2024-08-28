@@ -175,6 +175,27 @@ section {
   width: 100%;
 }
 
+.toolbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 0.3rem;
+  background-color: #ebebeb;
+  .options {
+    display: flex;
+    gap: 0.5rem;
+    select {
+      padding-left: 4px;
+      padding-right: 4px;
+      border-radius: 4px;
+    }
+  }
+  .home_title {
+    font-weight: bold;
+  }
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -216,9 +237,15 @@ section {
       button {
         font-size: bold;
       }
+
+      .leaf_node{
+        width: 12rem;
+        padding: 0.5rem;
+        border-radius: 0.3rem;
+      }
     }
 
-    .selected_item {
+    .selected_node {
       background-color: #d8e4f4;
     }
 

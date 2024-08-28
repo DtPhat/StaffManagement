@@ -53,8 +53,18 @@ export class StaffService {
   selectStaffView(action: StaffView): void {
     this.selectedStaffView.set(action)
   }
-  updateStaffMember(staff: Staff) {
+  updateStaffMember(id: string = '', updateData: Staff) {
+    if (!id) return;
+    this.staffList.update((prevData) => {
+      const updatedStaffList = prevData.map((member) =>
+        member.employeeId === id
+          ? { ...member, ...updateData }
+          : member
+      );
+      return updatedStaffList;
+    });
   }
+
 
 
   private generateRandomId(): string {

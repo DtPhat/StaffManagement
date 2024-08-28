@@ -1,54 +1,55 @@
 <section class="form-container">
-  <h6>TẠO MỚI NHÂN VIÊN</h6>
+  <div class="title">Thêm khách hàng mới</div>
   <form [formGroup]="staffForm" (ngSubmit)="onSubmit()">
     <div class="heading-wrapper">
       <div class="heading">Thông tin cơ bản</div>
     </div>
-    <mat-grid-list cols="9" rowHeight="2rem" gutterSize="8">
-      <mat-grid-tile class="form_field" colspan="2">
-        <label>Ảnh đại diện</label>
-        <input formControlName="picture" />
-      </mat-grid-tile>
-      <!-- <mat-grid-tile class="form_field" colspan="2">
-        <label>Mã nhân viên</label>
-        <input type="text" formControlName="employeeId" id="employeeId" [disabled]="true" [attr.tabindex]="-1" />
-      </mat-grid-tile> -->
-      <mat-grid-tile class="form_field" colspan="2">
+    <mat-grid-list cols="3" class="list_container" rowHeight="2rem" gutterSize="2rem">
+      <mat-grid-tile class="form_field">
         <label>Họ</label>
         <input formControlName="lastName" />
       </mat-grid-tile>
-      <mat-grid-tile class="form_field" colspan="2">
+      <mat-grid-tile class="form_field">
         <label>Tên lót</label>
         <input formControlName="middleName" />
       </mat-grid-tile>
-      <mat-grid-tile class="form_field" colspan="2">
+      <mat-grid-tile class="form_field">
         <label>Tên</label>
         <input formControlName="firstName" />
       </mat-grid-tile>
-      <mat-grid-tile class="form_field" colspan="2">
+    </mat-grid-list>
+
+    <mat-grid-list cols="2" class="list_container" rowHeight="2rem" gutterSize="2rem" >
+      <mat-grid-tile class="form_field">
         <label>Ngày sinh</label>
         <input type="date" formControlName="birthdate" />
       </mat-grid-tile>
-      <mat-grid-tile class="form_field" colspan="2">
-        <label>Giới tính</label>
-        <select id="gender" formControlName="gender">
-          <option *ngFor="let option of genderOptions" [value]="option.value">{{ option.label }}</option>
-        </select>
-      </mat-grid-tile>
-      <mat-grid-tile class="form_field" colspan="2">
-        <label>Dân tộc</label>
-        <select id="ethnicity" formControlName="ethnicity">
-          <option *ngFor="let option of ethnicityOptions" [value]="option.value">{{ option.label }}</option>
-        </select>
-      </mat-grid-tile>
-      <mat-grid-tile class="form_field" colspan="2">
+      <mat-grid-tile class="form_field">
         <label>Tôn giáo</label>
         <select id="ethnicity" formControlName="religion">
           <option *ngFor="let option of religionOptions" [value]="option.value">{{ option.label }}</option>
         </select>
       </mat-grid-tile>
+      <mat-grid-tile class="form_field">
+        <label>Dân tộc</label>
+        <select id="ethnicity" formControlName="ethnicity">
+          <option *ngFor="let option of ethnicityOptions" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </mat-grid-tile>
     </mat-grid-list>
-    <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="identityCard">
+
+    <mat-grid-list cols="2" class="list_container" rowHeight="2rem" gutterSize="2rem" formGroupName="contact">
+      <mat-grid-tile class="form_field">
+        <label>Email</label>
+        <input formControlName="email" />
+      </mat-grid-tile>
+      <mat-grid-tile class="form_field">
+        <label>Di động</label>
+        <input formControlName="phone" />
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="2" class="list_container" rowHeight="2rem" gutterSize="2rem" formGroupName="identityCard">
       <mat-grid-tile class="form_field">
         <label>CMND</label>
         <input formControlName="cmnd" />
@@ -66,8 +67,9 @@
         <input formControlName="issuePlace" />
       </mat-grid-tile>
     </mat-grid-list>
+
     <mat-grid-tile-header>Nơi tạm trú</mat-grid-tile-header>
-    <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="temporalResidence">
+    <mat-grid-list cols="2" class="list_container" rowHeight="2rem" gutterSize="2rem"  formGroupName="temporalResidence">
       <mat-grid-tile class="form_field">
         <label class="inner-label">Đường</label>
         <input formControlName="street" />
@@ -91,8 +93,9 @@
         </select>
       </mat-grid-tile>
     </mat-grid-list>
+
     <mat-grid-tile-header>Nơi thường trú</mat-grid-tile-header>
-    <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="permanentResidence">
+    <mat-grid-list cols="2" class="list_container" rowHeight="2rem" gutterSize="2rem" formGroupName="permanentResidence">
       <mat-grid-tile class="form_field">
         <label class="inner-label">Đường</label>
         <input formControlName="street" />
@@ -116,16 +119,7 @@
         </select>
       </mat-grid-tile>
     </mat-grid-list>
-    <mat-grid-list cols="4" rowHeight="2rem" gutterSize="8" formGroupName="contact">
-      <mat-grid-tile class="form_field">
-        <label>Email</label>
-        <input formControlName="email" />
-      </mat-grid-tile>
-      <mat-grid-tile class="form_field">
-        <label>Di động</label>
-        <input formControlName="phone" />
-      </mat-grid-tile>
-    </mat-grid-list>
+
 
     <div class="split lower">
       <div class="column">
@@ -145,7 +139,7 @@
               <span>kg</span>
             </div>
           </div>
-          <div formArrayName="disease">
+          <!-- <div formArrayName="disease">
             <div class="row" *ngFor="let disease of staffHealthDieases.controls; let i = index" [formGroupName]="i"
               class="form_array">
               <div class="sub_form_field">
@@ -164,7 +158,7 @@
             <div>
               <button type="button" (click)="onAddHealthDiease()">Thêm bệnh</button>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div class="info-section">
@@ -189,7 +183,7 @@
             <div class="heading">Thông tin gia đình</div>
           </div>
 
-          <div formArrayName="family">
+          <!-- <div formArrayName="family">
             <div class="row" *ngFor="let disease of staffHealthDieases.controls; let i = index" [formGroupName]="i"
               class="form_array">
               <div class="sub_form_field">
@@ -218,9 +212,9 @@
             </div>
             <hr>
             <div>
-              <button type="button" (click)="onAddFamily()">Thêm thông tin gia đình</button>
+              <button type="button" (click)="onAddFamily()">Thêm thông tin gia đình</button>s
             </div>
-          </div>
+          </div> -->
 
         </div>
         <div class="info-section">

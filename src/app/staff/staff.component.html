@@ -2,6 +2,8 @@
   <app-staff-actions></app-staff-actions>
   <div [ngSwitch]="staffView">
     <app-staff-edit *ngSwitchCase="StaffView.Edit"></app-staff-edit>
+    <app-staff-edit *ngSwitchCase="StaffView.Add"></app-staff-edit>
+    <app-staff-display *ngSwitchCase="StaffView.Display"></app-staff-display>
     <app-staff-display *ngSwitchDefault></app-staff-display>
   </div>
 </div>
