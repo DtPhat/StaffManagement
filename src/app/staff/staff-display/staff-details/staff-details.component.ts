@@ -28,8 +28,6 @@ import { StaffService } from '../../staff.service';
 })
 
 export class StaffDetailsComponent implements OnInit {
-
-  // @Input() staffDetails?: Staff;
   staffDetails: Staff | null = null;
   staffForm!: FormGroup;
   id: string = '';
@@ -88,7 +86,6 @@ export class StaffDetailsComponent implements OnInit {
 
   constructor(
     private staffService: StaffService,
-    private activatedRoute: ActivatedRoute,
   ) {
     effect(() => {
       this.staffDetails = this.staffService.getSelectedStaffMember()

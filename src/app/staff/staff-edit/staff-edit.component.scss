@@ -98,7 +98,7 @@ mat-grid-tile-header {
 
   input {
     font-size: 12px;
-    width: 5rem;
+    width: 8rem;
     border: 1px solid lightgray;
     border-radius: 2px;
     padding: 2px;
@@ -107,6 +107,10 @@ mat-grid-tile-header {
   #employeeId {
     background-color: gainsboro;
   }
+}
+
+button.x_button {
+  width: 1rem;
 }
 
 
@@ -194,8 +198,4 @@ button {
   justify-content: space-between;
   gap: 1rem;
   margin-top: 1rem
-}
-
-.x_button {
-  width: 2rem;
 }

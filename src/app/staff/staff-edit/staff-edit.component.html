@@ -19,7 +19,7 @@
       </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-grid-list cols="2" class="list_container" rowHeight="2rem" gutterSize="2rem" >
+    <mat-grid-list cols="2" class="list_container" rowHeight="2rem" gutterSize="2rem">
       <mat-grid-tile class="form_field">
         <label>Ngày sinh</label>
         <input type="date" formControlName="birthdate" />
@@ -69,7 +69,7 @@
     </mat-grid-list>
 
     <mat-grid-tile-header>Nơi tạm trú</mat-grid-tile-header>
-    <mat-grid-list cols="2" class="list_container" rowHeight="2rem" gutterSize="2rem"  formGroupName="temporalResidence">
+    <mat-grid-list cols="2" class="list_container" rowHeight="2rem" gutterSize="2rem" formGroupName="temporalResidence">
       <mat-grid-tile class="form_field">
         <label class="inner-label">Đường</label>
         <input formControlName="street" />
@@ -139,7 +139,7 @@
               <span>kg</span>
             </div>
           </div>
-          <!-- <div formArrayName="disease">
+          <div formArrayName="disease">
             <div class="row" *ngFor="let disease of staffHealthDieases.controls; let i = index" [formGroupName]="i"
               class="form_array">
               <div class="sub_form_field">
@@ -150,15 +150,13 @@
                 <label>Mô tả</label>
                 <input class="form-control" formControlName="description">
               </div>
-              <div>
-                <button type="button" class="x_button" (click)="onDeleteHealthDiease(i)">X</button>
-              </div>
+              <button type="button" class="x_button" (click)="onDeleteHealthDiease(i)">X</button>
             </div>
             <hr>
             <div>
               <button type="button" (click)="onAddHealthDiease()">Thêm bệnh</button>
             </div>
-          </div> -->
+          </div>
         </div>
 
         <div class="info-section">

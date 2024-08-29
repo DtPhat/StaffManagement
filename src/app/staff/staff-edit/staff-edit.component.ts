@@ -21,57 +21,60 @@ import { Staff } from '../../shared';
 })
 
 export class StaffEditComponent implements OnInit {
-  editMode = false;
+  editMode: boolean = false;
   staffDetails: Staff | null = null
   staffForm!: FormGroup;
   constructor(
     private staffService: StaffService,
   ) {
     effect(() => {
-      this.editMode = this.staffService.getStaffView() === StaffView.Edit;
-      this.staffDetails = this.staffService.getSelectedStaffMember();
-      this.staffDetails && this.staffForm.setValue({
-        // employeeId: this.staffDetails.employeeId || '',
-        lastName: this.staffDetails.lastName || '',
-        middleName: this.staffDetails.middleName || '',
-        firstName: this.staffDetails.firstName || '',
-        birthdate: this.staffDetails.birthdate || '',
-        gender: this.staffDetails.gender || '',
-        ethnicity: this.staffDetails.ethnicity || '',
-        religion: this.staffDetails.religion || '',
-        temporalResidence: {
-          street: this.staffDetails.temporalResidence?.street || '',
-          ward: this.staffDetails.temporalResidence?.ward || '',
-          commune: this.staffDetails.temporalResidence?.commune || '',
-          district: this.staffDetails.temporalResidence?.district || '',
-          county: this.staffDetails.temporalResidence?.county || '',
-          city: this.staffDetails.temporalResidence?.city || '',
-          province: this.staffDetails.temporalResidence?.province || '',
-        },
-        permanentResidence: {
-          street: this.staffDetails.permanentResidence?.street || '',
-          ward: this.staffDetails.permanentResidence?.ward || '',
-          commune: this.staffDetails.permanentResidence?.commune || '',
-          district: this.staffDetails.permanentResidence?.district || '',
-          county: this.staffDetails.permanentResidence?.county || '',
-          city: this.staffDetails.permanentResidence?.city || '',
-          province: this.staffDetails.permanentResidence?.province || '',
-        },
-        contact: {
-          email: this.staffDetails.contact?.email || '',
-          phone: this.staffDetails.contact?.phone || '',
-        },
-        identityCard: {
-          cmnd: this.staffDetails.identityCard?.cmnd || '',
-          cccd: this.staffDetails.identityCard?.cccd || '',
-          issueDate: this.staffDetails.identityCard?.issueDate || '',
-          issuePlace: this.staffDetails.identityCard?.issuePlace || '',
-        },
-        health: {
-          height: this.staffDetails.health?.height || 0,
-          weight: this.staffDetails.health?.weight || 0,
-        },
-      });
+      // this.initForm()
+      // this.editMode = this.staffService.getStaffView() === StaffView.Edit;
+      // this.staffDetails = this.editMode ? this.staffService.getSelectedStaffMember() : null;
+      if (this.staffDetails) {
+        this.staffForm.setValue({
+          lastName: this.staffDetails.lastName || '',
+          middleName: this.staffDetails.middleName || '',
+          firstName: this.staffDetails.firstName || '',
+          birthdate: this.staffDetails.birthdate || '',
+          gender: this.staffDetails.gender || '',
+          ethnicity: this.staffDetails.ethnicity || '',
+          religion: this.staffDetails.religion || '',
+          temporalResidence: {
+            street: this.staffDetails.temporalResidence?.street || '',
+            ward: this.staffDetails.temporalResidence?.ward || '',
+            commune: this.staffDetails.temporalResidence?.commune || '',
+            district: this.staffDetails.temporalResidence?.district || '',
+            county: this.staffDetails.temporalResidence?.county || '',
+            city: this.staffDetails.temporalResidence?.city || '',
+            province: this.staffDetails.temporalResidence?.province || '',
+          },
+          permanentResidence: {
+            street: this.staffDetails.permanentResidence?.street || '',
+            ward: this.staffDetails.permanentResidence?.ward || '',
+            commune: this.staffDetails.permanentResidence?.commune || '',
+            district: this.staffDetails.permanentResidence?.district || '',
+            county: this.staffDetails.permanentResidence?.county || '',
+            city: this.staffDetails.permanentResidence?.city || '',
+            province: this.staffDetails.permanentResidence?.province || '',
+          },
+          contact: {
+            email: this.staffDetails.contact?.email || '',
+            phone: this.staffDetails.contact?.phone || '',
+          },
+          identityCard: {
+            cmnd: this.staffDetails.identityCard?.cmnd || '',
+            cccd: this.staffDetails.identityCard?.cccd || '',
+            issueDate: this.staffDetails.identityCard?.issueDate || '',
+            issuePlace: this.staffDetails.identityCard?.issuePlace || '',
+          },
+          health: {
+            height: this.staffDetails.health?.height || 0,
+            weight: this.staffDetails.health?.weight || 0,
+            disease: []
+          },
+        });
+      }
     });
   }
 
@@ -122,22 +125,25 @@ export class StaffEditComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // this.activatedRoute.params
-    //   .subscribe(
-    //     (params: Params) => {
-    //       this.id = params['id'];
-    //       this.editMode = params['id'] != null;
-    //       this.initForm();
-    //     }
-    //   );
     this.editMode = this.staffService.getStaffView() === StaffView.Edit;
+    this.staffDetails = this.editMode ? this.staffService.getSelectedStaffMember() : null;
     this.initForm()
   }
 
   private initForm() {
+    const staffHealthDiseases = new FormArray<FormGroup<{ name: FormControl<string | null>; description: FormControl<string | null> }>>([]);
+    console.log(this.editMode, this.staffDetails)
     if (this.editMode) {
-      console.log(this.staffDetails)
+      this.staffDetails?.health.disease.forEach(diease => {
+        staffHealthDiseases.push(
+          new FormGroup({
+            name: new FormControl(diease.name, Validators.required),
+            description: new FormControl(diease.description)
+          })
+        )
+      })
     }
+
     this.staffForm = new FormGroup({
       lastName: new FormControl('', Validators.required),
       middleName: new FormControl('', Validators.required),
@@ -177,28 +183,30 @@ export class StaffEditComponent implements OnInit {
       health: new FormGroup({
         height: new FormControl(0, Validators.required),
         weight: new FormControl(0, Validators.required),
-        // disease: new FormArray([])
+        disease: staffHealthDiseases
       }),
       // family: new FormArray([])
     });
+
+
   }
 
-  // get staffHealthDieases() {
-  //   return this.staffForm.get('health')?.get('disease') as FormArray;
-  // }
+  get staffHealthDieases() {
+    return this.staffForm.get('health')?.get('disease') as FormArray;
+  }
 
-  // onAddHealthDiease() {
-  //   (<FormArray>this.staffForm.get('health')?.get('disease')).push(
-  //     new FormGroup({
-  //       'name': new FormControl('', Validators.required),
-  //       'description': new FormControl('', Validators.required)
-  //     })
-  //   );
-  // }
+  onAddHealthDiease() {
+    (<FormArray>this.staffForm.get('health')?.get('disease')).push(
+      new FormGroup({
+        name: new FormControl('', Validators.required),
+        description: new FormControl('')
+      })
+    );
+  }
 
-  // onDeleteHealthDiease(index: number) {
-  //   (<FormArray>this.staffForm.get('health')?.get('disease')).removeAt(index);
-  // }
+  onDeleteHealthDiease(index: number) {
+    (<FormArray>this.staffForm.get('health')?.get('disease')).removeAt(index);
+  }
 
   // get staffFamily() {
   //   return this.staffForm.get('family') as FormArray;
@@ -225,7 +233,6 @@ export class StaffEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Clicked?')
     if (this.editMode) {
       this.staffService.updateStaffMember(this.staffDetails?.employeeId!, this.staffForm.value);
     } else {
